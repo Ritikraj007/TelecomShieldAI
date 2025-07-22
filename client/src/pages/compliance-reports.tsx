@@ -11,6 +11,7 @@ import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { apiRequest } from "@/lib/queryClient";
 import { cn } from "@/lib/utils";
 import { DateRange } from "react-day-picker";
+import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 
 interface ComplianceReport {
   id: number;
