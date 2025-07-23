@@ -15,7 +15,7 @@ import Sidebar from "@/components/layout/sidebar";
 
 function AuthenticatedRouter() {
   return (
-    <div className="flex h-screen overflow-hidden dark">
+    <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <main className="flex-1 overflow-auto">
         <Switch>

@@ -58,13 +58,13 @@ export default function Dashboard() {
       <header className="pwc-card border-b p-6 m-0 rounded-none">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-white">Real-Time Threat Dashboard</h2>
-            <p className="text-gray-400">PwC TelecomSOC - AI-Powered Cybersecurity Monitoring</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Real-Time Threat Dashboard</h2>
+            <p className="text-gray-600 dark:text-gray-400">PwC TelecomSOC - AI-Powered Cybersecurity Monitoring</p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="status-indicator status-online" />
-              <span className="text-sm text-gray-300">Live Analysis Active</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">Live Analysis Active</span>
             </div>
             <Button 
               onClick={handleExportCSV} 

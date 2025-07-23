@@ -77,11 +77,17 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
-  /* Ensure dark theme by default */
+  /* Use light theme by default */
   html {
-    @apply dark;
+    /* No dark class applied by default */
   }
 
+  /* Light theme styles */
+  body {
+    background-color: hsl(0, 0%, 98%);
+    color: hsl(0, 0%, 10%);
+  }
+  
   html.dark body {
     background-color: var(--dark-bg);
     color: var(--text-primary);
@@ -110,14 +116,24 @@
   }
 
   .pwc-sidebar {
+    background-color: hsl(0, 0%, 98%);
+    border-right: 1px solid hsl(0, 0%, 90%);
+  }
+
+  .pwc-card {
+    background-color: white;
+    border: 1px solid hsl(0, 0%, 90%);
+    @apply rounded-lg shadow-xl;
+  }
+
+  .dark .pwc-sidebar {
     background-color: var(--sidebar-bg);
     border-right: 1px solid var(--border-gray);
   }
 
-  .pwc-card {
+  .dark .pwc-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-gray);
-    @apply rounded-lg shadow-xl;
   }
 
   .pwc-button-primary {

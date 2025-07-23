@@ -39,8 +39,8 @@ export default function Login() {
         loginTime: new Date().toISOString()
       }));
       
-      // Redirect to dashboard
-      setLocation("/");
+      // Force app reload to update authentication state
+      window.location.reload();
     } else {
       setError("Invalid username or password. Please try again.");
     }
@@ -49,7 +49,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl"></div>
@@ -57,7 +57,7 @@ export default function Login() {
       </div>
 
       <div className="relative w-full max-w-md">
-        <Card className="pwc-card border-gray-800 shadow-2xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardHeader className="text-center space-y-4 pb-8">
             {/* PwC Logo */}
             <div className="flex justify-center">
@@ -65,11 +65,11 @@ export default function Login() {
             </div>
             
             <div className="space-y-2">
-              <CardTitle className="text-2xl font-bold text-white flex items-center justify-center gap-2">
+              <CardTitle className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
                 <Shield className="h-6 w-6 text-orange-500" />
                 TelecomSOC
               </CardTitle>
-              <CardDescription className="text-gray-400">
+              <CardDescription className="text-gray-600">
                 Secure access to cybersecurity monitoring platform
               </CardDescription>
             </div>
@@ -77,15 +77,15 @@ export default function Login() {
 
           <CardContent className="space-y-6">
             {error && (
-              <Alert className="border-red-600 bg-red-900/20">
-                <AlertTriangle className="h-4 w-4 text-red-400" />
-                <AlertDescription className="text-red-400">{error}</AlertDescription>
+              <Alert className="border-red-300 bg-red-50">
+                <AlertTriangle className="h-4 w-4 text-red-600" />
+                <AlertDescription className="text-red-700">{error}</AlertDescription>
               </Alert>
             )}
 
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-gray-300 font-medium">
+                <Label htmlFor="username" className="text-gray-700 font-medium">
                   Username
                 </Label>
                 <Input
@@ -94,13 +94,13 @@ export default function Login() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-orange-500 focus:ring-orange-500/20"
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500/20"
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-gray-300 font-medium">
+                <Label htmlFor="password" className="text-gray-700 font-medium">
                   Password
                 </Label>
                 <div className="relative">
@@ -110,13 +110,13 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-orange-500 focus:ring-orange-500/20 pr-10"
+                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500/20 pr-10"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -133,14 +133,14 @@ export default function Login() {
             </form>
 
             {/* Demo Credentials Info */}
-            <div className="mt-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-              <div className="text-xs text-gray-400 mb-2 font-medium">Demo Credentials:</div>
+            <div className="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-200">
+              <div className="text-xs text-gray-600 mb-2 font-medium">Demo Credentials:</div>
               <div className="text-sm space-y-1">
-                <div className="text-gray-300">
-                  <span className="text-gray-500">Username:</span> pwc.admin
+                <div className="text-gray-800">
+                  <span className="text-gray-600">Username:</span> pwc.admin
                 </div>
-                <div className="text-gray-300">
-                  <span className="text-gray-500">Password:</span> TelecomSOC@2024
+                <div className="text-gray-800">
+                  <span className="text-gray-600">Password:</span> TelecomSOC@2024
                 </div>
               </div>
             </div>
@@ -148,9 +148,9 @@ export default function Login() {
         </Card>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>© 2024 PricewaterhouseCoopers. All rights reserved.</p>
-          <p className="mt-1">Secure • Compliant • Trusted</p>
+        <div className="mt-8 text-center text-sm text-gray-600">
+          <p>© 2025 PricewaterhouseCoopers. All rights reserved.</p>
+          <p className="mt-1 text-gray-500">Secure • Compliant • Trusted</p>
         </div>
       </div>
     </div>
