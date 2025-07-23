@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Shield, Gauge, Search, Bot, ShieldQuestion, FileText, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
-import pwcLogo from "@/assets/pwc-logo.svg";
+import pwcLogo from "@assets/PwC-logo_1753270261116.png";
 
 const navigation = [
   { name: "Real-Time Threats", href: "/", icon: Gauge },
@@ -21,12 +21,12 @@ export default function Sidebar() {
   const [location] = useLocation();
 
   return (
-    <aside className="w-64 pwc-sidebar flex-shrink-0 relative">
+    <aside className="w-64 pwc-sidebar flex-shrink-0 flex flex-col h-screen">
       <div className="p-6 border-b" style={{ borderColor: "var(--border-gray)" }}>
         <div className="flex flex-col space-y-4">
           {/* PwC Logo */}
           <div className="flex justify-center">
-            <img src={pwcLogo} alt="PwC" className="h-8 w-auto" />
+            <img src={pwcLogo} alt="PwC" className="h-12 w-auto" />
           </div>
           
           {/* Application Title */}
@@ -42,55 +42,58 @@ export default function Sidebar() {
         </div>
       </div>
       
-      <nav className="mt-6">
-        <div className="px-4">
-          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">Dashboard</p>
-          <ul className="space-y-2">
-            {navigation.map((item) => {
-              const isActive = location === item.href;
-              return (
-                <li key={item.name}>
-                  <Link href={item.href}>
-                    <a
-                      className={cn(
-                        "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
-                        isActive
-                          ? "text-white pwc-button-primary"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                      )}
-                    >
-                      <item.icon className="mr-3" size={18} />
-                      {item.name}
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        
-        <div className="px-4 mt-8">
-          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">System Status</p>
-          <div className="space-y-3">
-            {systemStatus.map((system) => (
-              <div key={system.name} className="flex items-center justify-between">
-                <span className="text-sm text-gray-700 dark:text-gray-300">{system.name}</span>
-                <span 
-                  className={cn(
-                    "status-indicator",
-                    system.status === "online" && "status-online",
-                    system.status === "warning" && "status-warning",
-                    system.status === "offline" && "status-offline"
-                  )}
-                />
-              </div>
-            ))}
+      {/* Scrollable Content Area */}
+      <div className="flex-1 overflow-y-auto">
+        <nav className="mt-6">
+          <div className="px-4">
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">Dashboard</p>
+            <ul className="space-y-2">
+              {navigation.map((item) => {
+                const isActive = location === item.href;
+                return (
+                  <li key={item.name}>
+                    <Link href={item.href}>
+                      <span
+                        className={cn(
+                          "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer",
+                          isActive
+                            ? "text-white pwc-button-primary"
+                            : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
+                        )}
+                      >
+                        <item.icon className="mr-3" size={18} />
+                        {item.name}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-        </div>
-      </nav>
+          
+          <div className="px-4 mt-8 pb-6">
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">System Status</p>
+            <div className="space-y-3">
+              {systemStatus.map((system) => (
+                <div key={system.name} className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">{system.name}</span>
+                  <span 
+                    className={cn(
+                      "status-indicator",
+                      system.status === "online" && "status-online",
+                      system.status === "warning" && "status-warning",
+                      system.status === "offline" && "status-offline"
+                    )}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </nav>
+      </div>
       
-      {/* Logout Button */}
-      <div className="absolute bottom-6 left-4 right-4">
+      {/* Logout Button - Fixed positioning */}
+      <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700">
         <button
           onClick={() => {
             localStorage.removeItem("isAuthenticated");

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Shield, AlertTriangle } from "lucide-react";
-import pwcLogo from "@/assets/pwc-logo.svg";
+import pwcLogo from "@assets/PwC-logo_1753270261116.png";
 
 export default function Login() {
   const [, setLocation] = useLocation();

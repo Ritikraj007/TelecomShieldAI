@@ -121,9 +121,6 @@ export default function Dashboard() {
                 Upload your call detail records (CDR) or SMS data to begin AI-powered threat analysis. 
                 The dashboard will show real-time statistics and insights once your data is processed.
               </p>
-              <div className="text-sm text-gray-500">
-                Supported formats: CSV files with call records, SMS messages, or mixed data
-              </div>
             </div>
           </div>
         )}

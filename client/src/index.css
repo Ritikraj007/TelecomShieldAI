@@ -38,7 +38,8 @@
   --sidebar-bg: hsl(0, 0%, 6%);          /* Darker sidebar */
   --border-gray: hsl(0, 0%, 20%);        /* Dark borders */
   --text-primary: hsl(0, 0%, 98%);       /* Near white text */
-  --text-secondary: hsl(0, 0%, 70%);     /* Light gray text */
+  --text-secondary: #A1A8B3;             /* Custom grey text color */
+  --text-grey: #A1A8B3;                  /* Custom grey text color */
   --threat-critical: hsl(0, 84%, 60%);
   --threat-high: var(--pwc-orange);
   --threat-medium: var(--pwc-yellow);
@@ -74,7 +75,7 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'ITC Charter', 'Charter', Georgia, serif;
   }
 
   /* Use light theme by default */
@@ -95,6 +96,40 @@
 }
 
 @layer components {
+  /* Font Family Utilities */
+  .font-headline {
+    font-family: 'ITC Charter', 'Charter', Georgia, serif;
+  }
+  
+  .font-body {
+    font-family: 'ITC Charter', 'Charter', Georgia, serif;
+  }
+  
+  .font-subheading {
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  }
+  
+  .font-label {
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  }
+  
+  .font-data {
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  }
+  
+  .font-intro {
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  }
+  
+  /* Custom Grey Text Color */
+  .text-custom-grey {
+    color: #A1A8B3;
+  }
+  
+  .text-grey-secondary {
+    color: var(--text-grey);
+  }
+
   .threat-gauge {
     @apply relative inline-flex items-center justify-center;
   }

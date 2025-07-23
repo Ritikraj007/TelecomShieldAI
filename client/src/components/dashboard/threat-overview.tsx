@@ -41,7 +41,7 @@ export default function ThreatOverview({ stats, isLoading }: ThreatOverviewProps
     },
     {
       title: "Risk Score",
-      value: stats.riskScore.toString(),
+      value: stats.riskScore.toFixed(2),
       icon: Gauge,
       iconColor: "text-yellow-500",
       bgColor: "bg-yellow-500/20",

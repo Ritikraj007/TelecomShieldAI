@@ -123,9 +123,8 @@ export default function CSVUploadPanel({ onAnalysisComplete }: CSVUploadPanelPro
   return (
     <Card className="pwc-card">
       <CardHeader>
-        <CardTitle className="flex items-center space-x-2 text-white">
-          <Upload className="h-5 w-5 text-orange-500" />
-          <span>CSV Data Analysis</span>
+        <CardTitle className="text-white">
+          CSV Data Analysis
         </CardTitle>
         <CardDescription className="text-gray-400">
           Upload your call detail records (CDR) or SMS data for AI-powered threat analysis using Gemini 2.5 Flash
@@ -136,9 +135,6 @@ export default function CSVUploadPanel({ onAnalysisComplete }: CSVUploadPanelPro
         {/* File Upload Section */}
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Upload CSV File (Call Records, SMS Data, or Mixed)
-            </label>
             <div className="relative">
               <input
                 type="file"

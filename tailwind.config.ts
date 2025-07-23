@@ -5,6 +5,15 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['ITC Charter', 'Charter', 'Georgia', 'serif'],
+        serif: ['ITC Charter', 'Charter', 'Georgia', 'serif'],
+        headline: ['ITC Charter', 'Charter', 'Georgia', 'serif'],
+        body: ['ITC Charter', 'Charter', 'Georgia', 'serif'],
+        subheading: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        label: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        data: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -44,6 +53,7 @@ export default {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
+        "text-grey": "#A1A8B3",
         chart: {
           "1": "var(--chart-1)",
           "2": "var(--chart-2)",
