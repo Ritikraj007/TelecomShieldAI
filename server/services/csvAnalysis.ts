@@ -14,7 +14,7 @@ export interface CSVAnalysisResult {
 }
 
 export class CSVAnalysisService {
-  async analyzeCSVData(fileBuffer: Buffer, fileType: 'cdr' | 'sms'): Promise<CSVAnalysisResult> {
+  async analyzeCSVData(fileBuffer: Buffer, fileType: 'cdr' | 'sms' | 'mixed'): Promise<CSVAnalysisResult> {
     const records: any[] = [];
     
     // Parse CSV data
@@ -26,7 +26,10 @@ export class CSVAnalysisService {
     const threatsByType: Record<string, number> = {};
     
     for (const row of csvData) {
-      if (fileType === 'cdr') {
+      // Auto-detect record type based on available columns
+      const detectedType = this.detectRecordType(row);
+      
+      if (detectedType === 'cdr' || fileType === 'cdr') {
         const cdrRecord: CDRRecord = this.mapToCDRRecord(row);
         const threatInfo = await this.analyzeAndStoreThreat(cdrRecord, 'cdr');
         
@@ -36,7 +39,7 @@ export class CSVAnalysisService {
           totalRiskScore += threatInfo.aiScore;
           threatsByType[threatInfo.threatType] = (threatsByType[threatInfo.threatType] || 0) + 1;
         }
-      } else if (fileType === 'sms') {
+      } else if (detectedType === 'sms' || fileType === 'sms') {
         const smsRecord: SMSRecord = this.mapToSMSRecord(row);
         const threatInfo = await this.analyzeAndStoreThreat(smsRecord, 'sms');
         
@@ -119,6 +122,21 @@ export class CSVAnalysisService {
       timestamp: new Date(row.timestamp || row.sent_time || Date.now()),
       messageType: (row.messageType || row.message_type || 'text') as 'text' | 'binary'
     };
+  }
+  
+  private detectRecordType(row: any): 'cdr' | 'sms' {
+    // Check for SMS-specific columns
+    if (row.message || row.content || row.text) {
+      return 'sms';
+    }
+    
+    // Check for CDR-specific columns
+    if (row.duration || row.call_duration || row.callType || row.call_type) {
+      return 'cdr';
+    }
+    
+    // Default to CDR if unclear
+    return 'cdr';
   }
 }
 

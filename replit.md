@@ -45,11 +45,13 @@ Located in `shared/schema.ts`, defines core entities:
 
 ### Real-time Data Services
 - **Mock Data Generator**: Simulates realistic telecom data (CDR, SMS, user behavior)
+- **CSV Analysis Service**: Upload and analyze user's own CSV data (call records, SMS messages)
 - **Threat Analysis Service**: AI-powered analysis of telecom patterns
 - **Auto-response System**: Configurable automated threat mitigation
 
 ### Frontend Features
 - **Real-time Dashboard**: Live threat monitoring with auto-refresh
+- **CSV Upload Panel**: Upload call detail records (CDR) and SMS data for AI analysis
 - **Anomaly Detection**: Pattern analysis with configurable sensitivity
 - **Fraud Detection**: User behavior analysis and risk scoring
 - **Auto Response**: Configurable automated actions and manual overrides

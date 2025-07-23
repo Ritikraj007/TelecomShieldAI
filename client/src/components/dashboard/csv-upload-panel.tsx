@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Upload, FileText, BarChart3, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -26,7 +26,6 @@ interface UploadResponse {
 
 export default function CSVUploadPanel() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [fileType, setFileType] = useState<'cdr' | 'sms'>('cdr');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [analysisResult, setAnalysisResult] = useState<CSVAnalysisResult | null>(null);
@@ -60,7 +59,7 @@ export default function CSVUploadPanel() {
     try {
       const formData = new FormData();
       formData.append('csvFile', selectedFile);
-      formData.append('fileType', fileType);
+      formData.append('fileType', 'mixed'); // Auto-detect from CSV content
 
       // Simulate progress
       const progressInterval = setInterval(() => {
@@ -127,42 +126,27 @@ export default function CSVUploadPanel() {
       <CardContent className="space-y-4">
         {/* File Upload Section */}
         <div className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Data Type
-              </label>
-              <Select value={fileType} onValueChange={(value: 'cdr' | 'sms') => setFileType(value)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cdr">Call Detail Records (CDR)</SelectItem>
-                  <SelectItem value="sms">SMS Messages</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                CSV File
-              </label>
-              <div className="relative">
-                <input
-                  type="file"
-                  accept=".csv"
-                  onChange={handleFileSelect}
-                  className="hidden"
-                  id="csv-upload"
-                />
-                <label
-                  htmlFor="csv-upload"
-                  className="flex items-center justify-center w-full h-10 border border-gray-600 rounded-md cursor-pointer bg-gray-800 hover:bg-gray-700 transition-colors"
-                >
-                  <FileText className="h-4 w-4 mr-2" />
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Upload CSV File (Call Records, SMS Data, or Mixed)
+            </label>
+            <div className="relative">
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleFileSelect}
+                className="hidden"
+                id="csv-upload"
+              />
+              <label
+                htmlFor="csv-upload"
+                className="flex items-center justify-center w-full h-12 border border-gray-600 rounded-md cursor-pointer bg-gray-800 hover:bg-gray-700 transition-colors"
+              >
+                <Upload className="h-5 w-5 mr-2 text-blue-400" />
+                <span className="text-white">
                   {selectedFile ? selectedFile.name : "Choose CSV file"}
-                </label>
-              </div>
+                </span>
+              </label>
             </div>
           </div>
 

@@ -268,14 +268,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      const { fileType } = req.body;
-      if (!fileType || !['cdr', 'sms'].includes(fileType)) {
-        return res.status(400).json({ error: "Invalid file type. Must be 'cdr' or 'sms'" });
-      }
-
+      // Auto-detect file type from CSV content or default to mixed analysis
       const analysisResult = await csvAnalysisService.analyzeCSVData(
         req.file.buffer,
-        fileType as 'cdr' | 'sms'
+        'mixed' // Let the service auto-detect the type
       );
 
       res.json({
