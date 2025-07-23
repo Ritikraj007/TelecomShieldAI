@@ -56,13 +56,13 @@ export default function ThreatOverview({ stats, isLoading }: ThreatOverviewProps
       )
     },
     {
-      title: "Blocked IPs",
+      title: "High Risk Records",
       value: stats.blockedIPs.toLocaleString(),
       icon: Ban,
       iconColor: "text-blue-400",
       bgColor: "bg-blue-400/20",
-      trend: { value: "-5%", direction: "down", color: "text-green-400" },
-      subtitle: "from yesterday"
+      trend: { value: "Critical attention needed", direction: "up", color: "text-red-400" },
+      subtitle: "from analysis"
     },
     {
       title: "Detection Rate",
@@ -70,8 +70,8 @@ export default function ThreatOverview({ stats, isLoading }: ThreatOverviewProps
       icon: Check,
       iconColor: "text-green-500",
       bgColor: "bg-green-500/20",
-      trend: { value: "Within SLA targets", direction: "check", color: "text-green-400" },
-      subtitle: ""
+      trend: { value: "Analysis complete", direction: "check", color: "text-green-400" },
+      subtitle: "of total records"
     }
   ];
 

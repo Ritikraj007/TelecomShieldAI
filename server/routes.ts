@@ -14,14 +14,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
   });
 
-  // Start mock data generation
-  mockDataGenerator.start();
+  // Mock data generation disabled - data comes from CSV uploads only
+  // mockDataGenerator.start();
 
-  // Dashboard routes
+  // Dashboard routes - only shows data after CSV analysis
   app.get("/api/dashboard/stats", async (req, res) => {
     try {
+      const threats = await storage.getThreats(100, 0);
+      
+      // Only return stats if we have threats from CSV analysis
+      if (threats.length === 0) {
+        return res.json({
+          activeThreats: 0,
+          riskScore: 0,
+          blockedIPs: 0,
+          detectionRate: 0,
+          hasData: false
+        });
+      }
+      
       const stats = await storage.getThreatStats();
-      res.json(stats);
+      res.json({
+        ...stats,
+        hasData: true
+      });
     } catch (error) {
       res.status(500).json({ error: "Failed to get dashboard stats" });
     }

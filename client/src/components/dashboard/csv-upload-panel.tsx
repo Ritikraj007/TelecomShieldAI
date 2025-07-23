@@ -24,7 +24,11 @@ interface UploadResponse {
   message: string;
 }
 
-export default function CSVUploadPanel() {
+interface CSVUploadPanelProps {
+  onAnalysisComplete?: (analysis: CSVAnalysisResult) => void;
+}
+
+export default function CSVUploadPanel({ onAnalysisComplete }: CSVUploadPanelProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -81,6 +85,11 @@ export default function CSVUploadPanel() {
 
       const result: UploadResponse = await response.json();
       setAnalysisResult(result.analysis);
+      
+      // Notify parent component about the analysis completion
+      if (onAnalysisComplete) {
+        onAnalysisComplete(result.analysis);
+      }
       
       // Refresh dashboard data
       await queryClient.invalidateQueries({ queryKey: ['/api/dashboard/stats'] });
