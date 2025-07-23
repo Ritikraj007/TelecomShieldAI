@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -9,9 +10,10 @@ import AnomalyDetection from "@/pages/anomaly-detection";
 import AutoResponse from "@/pages/auto-response";
 import FraudDetection from "@/pages/fraud-detection";
 import ComplianceReports from "@/pages/compliance-reports";
+import Login from "@/pages/login";
 import Sidebar from "@/components/layout/sidebar";
 
-function Router() {
+function AuthenticatedRouter() {
   return (
     <div className="flex h-screen overflow-hidden dark">
       <Sidebar />
@@ -30,11 +32,28 @@ function Router() {
 }
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Check authentication status
+    const authStatus = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(authStatus === "true");
+  }, []);
+
+  // Show loading while checking auth
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        {isAuthenticated ? <AuthenticatedRouter /> : <Login />}
       </TooltipProvider>
     </QueryClientProvider>
   );

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
-import { Shield, Gauge, Search, Bot, ShieldQuestion, FileText } from "lucide-react";
+import { Shield, Gauge, Search, Bot, ShieldQuestion, FileText, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import pwcLogo from "@/assets/pwc-logo.svg";
 
 const navigation = [
   { name: "Real-Time Threats", href: "/", icon: Gauge },
@@ -20,15 +21,23 @@ export default function Sidebar() {
   const [location] = useLocation();
 
   return (
-    <aside className="w-64 pwc-sidebar flex-shrink-0">
+    <aside className="w-64 pwc-sidebar flex-shrink-0 relative">
       <div className="p-6 border-b" style={{ borderColor: "var(--border-gray)" }}>
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center pwc-button-primary">
-            <Shield className="text-white text-xl" size={24} />
+        <div className="flex flex-col space-y-4">
+          {/* PwC Logo */}
+          <div className="flex justify-center">
+            <img src={pwcLogo} alt="PwC" className="h-8 w-auto" />
           </div>
-          <div>
-            <h1 className="text-lg font-bold text-white">TelecomSOC</h1>
-            <p className="text-sm text-gray-400">AI Security Platform</p>
+          
+          {/* Application Title */}
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center pwc-button-primary">
+              <Shield className="text-white text-xl" size={24} />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-white">TelecomSOC</h1>
+              <p className="text-sm text-gray-400">Cybersecurity Monitoring</p>
+            </div>
           </div>
         </div>
       </div>
@@ -79,6 +88,21 @@ export default function Sidebar() {
           </div>
         </div>
       </nav>
+      
+      {/* Logout Button */}
+      <div className="absolute bottom-6 left-4 right-4">
+        <button
+          onClick={() => {
+            localStorage.removeItem("isAuthenticated");
+            localStorage.removeItem("userInfo");
+            window.location.reload();
+          }}
+          className="w-full flex items-center px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-600 hover:text-white rounded-md transition-colors"
+        >
+          <LogOut className="mr-3" size={18} />
+          Sign Out
+        </button>
+      </div>
     </aside>
   );
 }

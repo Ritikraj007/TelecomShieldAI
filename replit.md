@@ -8,6 +8,15 @@ This is a full-stack telecom cybersecurity monitoring platform called "TelecomSO
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes (January 2025)
+
+✓ Implemented PwC brand compliance with official colors and logo
+✓ Created hardcoded login page with credentials (pwc.admin / TelecomSOC@2024)
+✓ Updated UI with PwC orange (#E85604) as primary brand color
+✓ Added authentication flow with localStorage session management
+✓ Integrated PwC logo in sidebar and login page
+✓ Applied PwC cybersecurity dark theme throughout application
+
 ## System Architecture
 
 ### Frontend Architecture

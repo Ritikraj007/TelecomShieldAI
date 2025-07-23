@@ -123,12 +123,12 @@ export default function CSVUploadPanel({ onAnalysisComplete }: CSVUploadPanelPro
   return (
     <Card className="pwc-card">
       <CardHeader>
-        <CardTitle className="flex items-center space-x-2">
-          <Upload className="h-5 w-5" />
+        <CardTitle className="flex items-center space-x-2 text-white">
+          <Upload className="h-5 w-5 text-orange-500" />
           <span>CSV Data Analysis</span>
         </CardTitle>
-        <CardDescription>
-          Upload your call detail records (CDR) or SMS data for AI-powered threat analysis
+        <CardDescription className="text-gray-400">
+          Upload your call detail records (CDR) or SMS data for AI-powered threat analysis using Gemini 2.5 Flash
         </CardDescription>
       </CardHeader>
       
@@ -151,7 +151,7 @@ export default function CSVUploadPanel({ onAnalysisComplete }: CSVUploadPanelPro
                 htmlFor="csv-upload"
                 className="flex items-center justify-center w-full h-12 border border-gray-600 rounded-md cursor-pointer bg-gray-800 hover:bg-gray-700 transition-colors"
               >
-                <Upload className="h-5 w-5 mr-2 text-blue-400" />
+                <Upload className="h-5 w-5 mr-2 text-orange-500" />
                 <span className="text-white">
                   {selectedFile ? selectedFile.name : "Choose CSV file"}
                 </span>
@@ -198,7 +198,7 @@ export default function CSVUploadPanel({ onAnalysisComplete }: CSVUploadPanelPro
         {analysisResult && (
           <div className="space-y-4 pt-4 border-t border-gray-700">
             <div className="flex items-center space-x-2">
-              <BarChart3 className="h-5 w-5 text-blue-400" />
+              <BarChart3 className="h-5 w-5 text-orange-500" />
               <h3 className="text-lg font-semibold text-white">Analysis Results</h3>
             </div>
             
