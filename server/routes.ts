@@ -1,11 +1,19 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import multer from "multer";
 import { storage } from "./storage";
 import { threatAnalysisService } from "./services/threatAnalysis";
 import { mockDataGenerator } from "./services/mockData";
+import { csvAnalysisService } from "./services/csvAnalysis";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Configure multer for file uploads
+  const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+  });
+
   // Start mock data generation
   mockDataGenerator.start();
 
@@ -250,6 +258,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(timelineData);
     } catch (error) {
       res.status(500).json({ error: "Failed to get timeline data" });
+    }
+  });
+
+  // CSV Upload and Analysis route
+  app.post("/api/upload-csv", upload.single('csvFile'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const { fileType } = req.body;
+      if (!fileType || !['cdr', 'sms'].includes(fileType)) {
+        return res.status(400).json({ error: "Invalid file type. Must be 'cdr' or 'sms'" });
+      }
+
+      const analysisResult = await csvAnalysisService.analyzeCSVData(
+        req.file.buffer,
+        fileType as 'cdr' | 'sms'
+      );
+
+      res.json({
+        success: true,
+        analysis: analysisResult,
+        message: `Successfully analyzed ${analysisResult.totalRecords} records and detected ${analysisResult.threatsDetected} potential threats`
+      });
+    } catch (error) {
+      console.error('CSV upload error:', error);
+      res.status(500).json({ error: "Failed to analyze CSV file" });
     }
   });
 

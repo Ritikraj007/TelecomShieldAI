@@ -25,7 +25,7 @@ export interface SMSRecord {
 export class ThreatAnalysisService {
   async analyzeCDRRecord(cdr: CDRRecord): Promise<void> {
     try {
-      const analysis = await analyzeThreatData(JSON.stringify(cdr));
+      const analysis = await analyzeThreatData(JSON.stringify(cdr), 'cdr');
       
       if (analysis.threatScore > 5) {
         const threat: InsertThreat = {
@@ -51,7 +51,7 @@ export class ThreatAnalysisService {
 
   async analyzeSMSRecord(sms: SMSRecord): Promise<void> {
     try {
-      const analysis = await analyzeThreatData(JSON.stringify(sms));
+      const analysis = await analyzeThreatData(JSON.stringify(sms), 'sms');
       
       if (analysis.threatScore > 5) {
         const threat: InsertThreat = {
@@ -83,14 +83,14 @@ export class ThreatAnalysisService {
         timestamp: new Date(),
       };
 
-      const analysis = await analyzeThreatData(JSON.stringify(behaviorData));
+      const analysis = await analyzeThreatData(JSON.stringify(behaviorData), 'user_behavior');
       
       if (analysis.threatScore > 6) {
         // Create fraud case
         await storage.createFraudCase({
           userId,
           riskScore: analysis.threatScore,
-          indicators: analysis.indicators || [],
+          indicators: analysis.recommendations || [],
           status: 'investigating',
         });
 
@@ -169,17 +169,17 @@ export class ThreatAnalysisService {
         threatStats: await storage.getThreatStats(),
       };
 
-      const summary = await generateThreatSummary(JSON.stringify(reportData));
+      const summary = await analyzeThreatData(JSON.stringify(reportData), 'compliance_report');
       
       await storage.createComplianceReport({
         reportType,
         startDate,
         endDate,
-        summary,
+        summary: summary.description,
         filePath: `/reports/${reportType}_${Date.now()}.pdf`,
       });
 
-      return summary;
+      return summary.description;
     } catch (error) {
       console.error('Error generating compliance report:', error);
       throw error;

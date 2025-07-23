@@ -7,6 +7,7 @@ import ThreatControls from "@/components/dashboard/threat-controls";
 import ThreatTimeline from "@/components/dashboard/threat-timeline";
 import LiveThreatFeed from "@/components/dashboard/live-threat-feed";
 import AutoResponsePanel from "@/components/dashboard/auto-response-panel";
+import CSVUploadPanel from "@/components/dashboard/csv-upload-panel";
 
 export default function Dashboard() {
   const [filters, setFilters] = useState({
@@ -57,6 +58,9 @@ export default function Dashboard() {
       </header>
 
       <div className="p-6 space-y-6">
+        {/* CSV Upload Panel */}
+        <CSVUploadPanel />
+
         {/* Threat Overview */}
         <ThreatOverview stats={stats as any} isLoading={statsLoading} />
 
